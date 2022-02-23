@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <script src="js/webPoller.js"></script>
+        <link rel="stylesheet" href="app.css">
+    </head>
+    <body>
+        <div ng-app="webPoller" ng-controller="webPollerController" >
+            <h1>Add new URL</h1>
+            Name: <input type="text" ng-model="name"></input> URL: <input type="text" ng-model="url"></input>
+            <button ng-click="add(url, name)" ng-disabled="!isValidUrl(url)">Add</button>
+            <hr>
+
+            <div ng-if="updatingEntry.id">
+                <h1>Edit</h1>
+                Name: <input type="text" ng-model="updatingEntry.name"></input> URL: <input type="text" ng-model="updatingEntry.url"></input>
+                <button ng-click="update(updatingEntry)" ng-disabled="!isValidUrl(updatingEntry.url)">Save Changes</button>
+                <hr>
+            </div>
+
+            <div ng-repeat="entry in entries">
+                <div ng-style="{{getCss(entry)}}" class="row">
+                    <div class="text">
+                        {{entry.creationTime}} | {{entry.name}} | {{entry.url}} 
+                        <button ng-click="delete(entry)">Delete</button>
+                        <button ng-click="toggleUpdateDialog(entry)">Edit</button>
+                        <div class="status">{{getStatusText(entry)}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

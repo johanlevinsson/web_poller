@@ -1,0 +1,33 @@
+.row {
+    min-height: 26px;
+    border: 1px solid gray;
+    padding-top: 2px;
+    line-height: 22px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-width: 400px;
+}
+
+.text {
+    overflow: hidden;
+}
+
+.status {
+    padding: 2px;
+    padding-right: 8px;
+    line-height: 22px;
+    float: right;
+    font-family: 'Courier New', Courier, monospace;
+    overflow: visible;
+    position: relative;
+}
+
+button {
+    float: right;
+    margin: 2px;
+}
+
+h1 {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: medium;
+}
+
