@@ -1,5 +1,7 @@
 var app = angular.module('webPoller', []);
 app.controller('webPollerController', function($scope, $http, $interval) {
+    const API_PATH = 'http://localhost:8080/api/'
+    const SECONDS_BETWEEN_UPDATES = 10;
     $scope.entries = [];
     $scope.url = '';
     $scope.name = '';
@@ -9,11 +11,8 @@ app.controller('webPollerController', function($scope, $http, $interval) {
         id: 0
     }
     
-    const restApi = 'http://localhost:8080/api/'
-    const SECONDS_BETWEEN_UPDATES = 10;
-
     $scope.getStatuses = function() {
-        $http.get(restApi + "all").then(
+        $http.get(API_PATH + "all").then(
           function (response) {
             $scope.entries = response.data;
           }
@@ -21,12 +20,12 @@ app.controller('webPollerController', function($scope, $http, $interval) {
     };
 
     $scope.add = function (url, name) {
-        const obj = {
+        const urlObject = {
             "url": url,
             "name": name
         };
 
-        $http.get(restApi + "add?urlObject=" + encodeURIComponent(JSON.stringify(obj))).then(
+        $http.get(API_PATH + "add?urlObject=" + encodeURIComponent(JSON.stringify(urlObject))).then(
             function (response) {
               $scope.entries = response.data;
             }
@@ -37,7 +36,7 @@ app.controller('webPollerController', function($scope, $http, $interval) {
     }
 
     $scope.delete = function (entry) {
-        $http.post(restApi + "remove/" + entry.id).then(
+        $http.post(API_PATH + "remove/" + entry.id).then(
             function (response) {
               $scope.entries = response.data;
             }
@@ -45,13 +44,13 @@ app.controller('webPollerController', function($scope, $http, $interval) {
     }
 
     $scope.update = function (entry) {
-        const obj = {
+        const updateUrlObject = {
             "url": entry.url,
             "name": entry.name,
             "id": entry.id
         };
 
-        $http.get(restApi + "update?updateUrlObject=" + encodeURIComponent(JSON.stringify(obj))).then(
+        $http.get(API_PATH + "update?updateUrlObject=" + encodeURIComponent(JSON.stringify(updateUrlObject))).then(
             function (response) {
               $scope.entries = response.data;
             }
